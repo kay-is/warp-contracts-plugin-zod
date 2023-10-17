@@ -45,7 +45,8 @@
     "prettier": "*",
     "rimraf": "*",
     "ts-node": "*",
-    "typescript": "*"
+    "typescript": "*",
+    "warp-contracts": "*"
   },
   "peerDependencies": {
     "warp-contracts": "*"
