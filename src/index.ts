@@ -1,10 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { WarpPlugin, WarpPluginType } from 'warp-contracts';
-import zod from 'zod';
+import { z } from 'zod';
+
+export type zod = typeof z;
 
 export class ZodExtension implements WarpPlugin<any, void> {
   process(input: any): void {
-    input.zod = zod;
+    input.zod = z;
   }
 
   type(): WarpPluginType {
