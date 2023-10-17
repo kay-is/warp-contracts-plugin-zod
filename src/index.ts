@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { WarpPlugin, WarpPluginType } from 'warp-contracts';
 import zod from 'zod';
 
