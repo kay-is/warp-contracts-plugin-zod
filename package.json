@@ -1,6 +1,6 @@
 {
   "name": "@kay-is/warp-contracts-plugin-zod",
-  "version": "0.1.0-alpha",
+  "version": "0.1.0-alpha6",
   "description": "Use Zod validation inside Warp Contracts.",
   "types": "./lib/types/index.d.ts",
   "main": "./lib/cjs/index.js",
