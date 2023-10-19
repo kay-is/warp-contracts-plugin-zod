@@ -2,12 +2,12 @@
 import { WarpPlugin, WarpPluginType } from 'warp-contracts';
 import { z } from 'zod';
 
-declare global {
-  interface SmartWeave {
-    extensions: {
-      zod: typeof z;
-    };
-  }
+export type Zod = typeof z;
+
+export interface SmartweaveZodExtension {
+  extensions: {
+    z: Zod;
+  };
 }
 
 export class ZodExtension implements WarpPlugin<any, void> {
@@ -16,6 +16,7 @@ export class ZodExtension implements WarpPlugin<any, void> {
   }
 
   type(): WarpPluginType {
+    global.zod = z;
     return 'smartweave-extension-zod';
   }
 }
