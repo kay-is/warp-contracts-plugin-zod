@@ -1,25 +1,37 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ContractError, WarpPlugin, WarpPluginType } from 'warp-contracts';
-import { z } from 'zod';
+import { KeyedSchemas, arweaveSchemas } from './types';
 
-// To infer static types from schemas
-export type Zod = typeof z;
+export class ZodExtension<Schemas> implements WarpPlugin<any, void> {
+  private schemas: KeyedSchemas<Schemas>;
 
-const validate = <T>(schema: Zod.ZodType<T>, input: unknown) => {
-  const result = schema.safeParse(input);
-  if (result.success) return result.data;
-  // @ts-expect-error if-statement guards against this error
-  throw new ContractError(result.error);
-};
+  private parse<T>(schema: Zod.ZodType<T>, input: unknown, errorMsg?: string): T {
+    const result = schema.safeParse(input);
+    if (result.success) return result.data;
+    // @ts-expect-error The if-statement guards against this
+    const errorMessage = errorMsg || result.error;
+    throw new ContractError(errorMessage);
+  }
 
-export class ZodExtension implements WarpPlugin<any, void> {
-  process() {}
+  constructor(schemas: KeyedSchemas<Schemas>) {
+    this.schemas = schemas;
+  }
 
   type(): WarpPluginType {
-    // To make Zod available outside of a contract
-    global.zod = z;
-    global.validate = validate;
-
     return 'smartweave-extension-zod';
+  }
+
+  process(extensionNamespace) {
+    const parsers = {};
+
+    for (const schema of Object.keys(arweaveSchemas))
+      parsers[schema] = (input: unknown, errorMsg?: string) => this.parse(arweaveSchemas[schema], input, errorMsg);
+
+    for (const schema of Object.keys(this.schemas))
+      parsers[schema] = (input: unknown, errorMsg?: string) => this.parse(this.schemas[schema], input, errorMsg);
+
+    extensionNamespace.zod = {
+      parse: parsers
+    };
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@kay-is/warp-contracts-plugin-zod",
-  "version": "0.1.0-alpha8",
+  "version": "0.1.0-beta1",
   "description": "Use Zod validation inside Warp Contracts.",
   "types": "./lib/types/index.d.ts",
   "main": "./lib/cjs/index.js",
@@ -46,12 +46,11 @@
     "rimraf": "*",
     "ts-node": "*",
     "typescript": "*",
-    "warp-contracts": "*"
+    "warp-contracts": "*",
+    "zod": "*"
   },
   "peerDependencies": {
-    "warp-contracts": "*"
-  },
-  "dependencies": {
-    "zod": "^3.22.4"
+    "warp-contracts": "*",
+    "zod": "*"
   }
 }
