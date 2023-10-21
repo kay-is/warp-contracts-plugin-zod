@@ -26,7 +26,7 @@ export type SmartWeaveExtensionZod<Schemas> = {
 };
 
 // Arweave utility schemas and types
-export const base64Url = z.string().regex(/^[a-zA-Z0-9_-]$/);
+export const base64Url = z.string().regex(/^[a-zA-Z0-9_-]+$/);
 export type Base64Url = z.infer<typeof base64Url>;
 
 export const arweaveAddr = base64Url.length(43);
