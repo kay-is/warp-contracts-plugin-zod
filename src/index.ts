@@ -2,6 +2,8 @@
 import { ContractError, WarpPlugin, WarpPluginType } from 'warp-contracts';
 import { KeyedSchemas, arweaveSchemas } from './types';
 
+export * from './types';
+
 export class ZodExtension<Schemas> implements WarpPlugin<any, void> {
   private schemas: KeyedSchemas<Schemas>;
 
